@@ -1,4 +1,7 @@
 import * as React from "react"
+import { Link } from "react-router-dom";
+import lightLogo from '/lightmodelogopng.png'
+import darkLogo from '/darkmodelogo.png'
 import {
   IconCamera,
   IconChartBar,
@@ -18,6 +21,7 @@ import {
   IconCirclePlus,
  IconCertificate,
  IconLayoutGrid,
+ IconLayoutDashboard,
 } from "@tabler/icons-react"
 
 import { NavDocuments } from "@/components/nav-documents"
@@ -39,29 +43,29 @@ const data = {
   navMain: [
     {
       title: "Dashboard",
-      url: "#",
-      icon: IconDashboard,
+      url: "/dashboard",
+      icon:IconLayoutDashboard,
     },
     {
       title: "Create Campaign",
-      url: "#",
+      url: "/dashboard/create-campaign",
       icon: IconCirclePlus,
     },
-    {
-      title: "Active Campaigns",
-      url: "#",
-      icon: IconLayoutGrid,
-    },
+    // {
+    //   title: "Active Campaigns",
+    //   url: "/dashboard/active-campaigns",
+    //   icon: IconLayoutGrid,
+    // },
     {
       title: "Certificates",
-      url: "#",
+      url: "/dashboard/certificates",
       icon: IconCertificate,
     },
-    {
-      title: "Profile",
-      url: "#",
-      icon: IconUsers,
-    },
+    // {
+    //   title: "Profile",
+    //   url: "/dashboard/users",
+    //   icon: IconUsers,
+    // },
   ],
  
 }
@@ -77,13 +81,11 @@ export function AppSidebar({
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild className="data-[slot=sidebar-menu-button]:!p-1.5">
-              <a href="#">
-                 <img src="./lightmodelogopng.png" className="block dark:hidden w-8 min-w-7" alt="light logo" />
-      <img src="./darkmodelogo.png" className="hidden dark:block w-8 min-w-7 " alt="dark logo" />
-
-      
-                <span className="text-lg font-semibold">Ecostep</span>
-              </a>
+             <Link to="/dashboard">
+          <img src={lightLogo} className="block dark:hidden w-8 min-w-7" alt="light logo" />
+          <img src={darkLogo} className="hidden dark:block w-8 min-w-7" alt="dark logo" />
+          <span className="text-lg font-semibold">Ecostep</span>
+        </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

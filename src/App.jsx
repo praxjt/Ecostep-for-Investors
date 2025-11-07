@@ -1,31 +1,36 @@
 import React from 'react';
-import './App.css';
+// import './App.css';
+import { SidebarProvider } from "@/components/ui/sidebar";
 import ConnectWallet from './pages/Landing/ConnectWallet.jsx';
-import  DashboardLayout  from './layouts/DashboardLayout';
-import DashboardHome from './pages/dashboard/DashboardHome.jsx';
+import  DashboardLayout  from '@/layouts/DashboardLayout';
+import DashboardHome from '@/pages/dashboard/DashboardHome';
+import CreateCampaign from '@/pages/CreateCampaign/CreateCampaign';
+import Certificates from '@/pages/Certificates/Certificates';
+import ActiveCampign from '@/pages/ActiveCampaign/ActiveCampaign';
+import Users from '@/pages/Users/Users';
+
 import { Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from "@/components/theme-provider"
 function App() {
   return (
+    <SidebarProvider>
      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-     <Routes>
-  
+    <Routes>
       <Route path="/dashboard" element={<DashboardLayout />}>
-        <Route index element={<DashboardHome />} />         
-        {/* <Route path="create" element={<CreateCampaign />} />  
-        <Route path="active" element={<ActiveCampaigns />} />  
+        <Route index element={<DashboardHome />} />
+        <Route path="create-campaign" element={<CreateCampaign />} />
+        <Route path="active-campaigns" element={<ActiveCampign />} />
         <Route path="certificates" element={<Certificates />} />
-        <Route path="profile" element={<Profile />} />          */}
+        <Route path="users" element={<Users />} />
       </Route>
 
-      {/* Public pages */}
-      {/* <Route path="/about" element={<About />} />
-      <Route path="/faq" element={<FAQ />} /> */}
-
-      {/* Default route */}
-      <Route path="*" element={<DashboardHome />} />
+      {/* fallback route */}
+      <Route path="*" element={<DashboardLayout />}>
+        <Route index element={<DashboardHome />} />
+      </Route>
     </Routes>
     </ThemeProvider>
+   </SidebarProvider>
   );
 }
 
