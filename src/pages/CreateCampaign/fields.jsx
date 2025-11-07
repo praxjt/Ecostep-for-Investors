@@ -30,6 +30,16 @@ export function Fields() {
               All transactions are secure and encrypted
             </FieldDescription>
             <FieldGroup>
+               <Field>
+                <FieldLabel htmlFor="checkout-7j9-card-name-43j">
+                  Name of the Company
+                </FieldLabel>
+                <Input
+                  id="checkout-7j9-card-name-43j"
+                  placeholder="Green Earth Ltd."
+                  required
+                />
+              </Field>
               <Field>
                 <FieldLabel htmlFor="checkout-7j9-card-name-43j">
                   Name of the event
