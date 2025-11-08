@@ -28,6 +28,7 @@ function ConnectWallet() {
         body: JSON.stringify({
           address: addr,
           chainId:  Number(network.chainId),
+          role:"Investor"
         }),
       });
 

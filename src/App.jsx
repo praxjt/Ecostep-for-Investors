@@ -8,30 +8,37 @@ import CreateCampaign from '@/pages/CreateCampaign/CreateCampaign';
 import Certificates from '@/pages/Certificates/Certificates';
 import ActiveCampign from '@/pages/ActiveCampaign/ActiveCampaign';
 import Users from '@/pages/Users/Users';
+// import LandingPage from '@/pages/Landing/ConnectWallet';
+import ProtectedRoute from '@/components/ProtectedRoute'; 
 
 import { Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from "@/components/theme-provider"
 function App() {
   return (
     <SidebarProvider>
-     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-    <Routes>
-      <Route path="/dashboard" element={<DashboardLayout />}>
-        <Route index element={<DashboardHome />} />
-        <Route path="create-campaign" element={<CreateCampaign />} />
-        <Route path="active-campaigns" element={<ActiveCampign />} />
-        <Route path="certificates" element={<Certificates />} />
-        <Route path="users" element={<Users />} />
-      </Route>
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <Routes>
+          <Route path="/" element={<ConnectWallet />} />
 
-      {/* fallback route */}
-      <Route path="*" element={<DashboardLayout />}>
-        <Route index element={<DashboardHome />} />
-      </Route>
-    </Routes>
-    </ThemeProvider>
-   </SidebarProvider>
-  );
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <DashboardLayout />
+              </ProtectedRoute>
+            }
+          >
+            <Route index element={<DashboardHome />} />
+            <Route path="create-campaign" element={<CreateCampaign />} />
+            <Route path="certificates" element={<Certificates />} />
+          </Route>
+
+          {/* Fallback Route */}
+          <Route path="*" element={<ConnectWallet />} />
+        </Routes>
+      </ThemeProvider>
+    </SidebarProvider>
+      );
 }
 
 export default App;
