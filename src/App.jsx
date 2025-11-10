@@ -9,23 +9,25 @@ import Certificates from '@/pages/Certificates/Certificates';
 import ActiveCampign from '@/pages/ActiveCampaign/ActiveCampaign';
 import Users from '@/pages/Users/Users';
 // import LandingPage from '@/pages/Landing/ConnectWallet';
+import LandingPage from '@/pages/Landing/Landingpage.jsx';
 import ProtectedRoute from '@/components/ProtectedRoute'; 
 
 import { Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from "@/components/theme-provider"
 function App() {
   return (
-    <SidebarProvider>
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <Routes>
-          <Route path="/" element={<ConnectWallet />} />
+          <Route path="/" element={<LandingPage />} />
 
           <Route
             path="/dashboard"
             element={
+               <SidebarProvider>
               <ProtectedRoute>
                 <DashboardLayout />
               </ProtectedRoute>
+              </SidebarProvider>
             }
           >
             <Route index element={<DashboardHome />} />
@@ -37,7 +39,6 @@ function App() {
           <Route path="*" element={<ConnectWallet />} />
         </Routes>
       </ThemeProvider>
-    </SidebarProvider>
       );
 }
 
