@@ -1,4 +1,4 @@
-import { IconTrendingDown, IconTrendingUp,IconLeaf,IconCircleDottedLetterC,IconCircleDashedCheck,IconBrandAsana } from "@tabler/icons-react"
+import { IconTrendingDown, IconTrendingUp,IconLeaf,IconCircleDottedLetterC,IconCircleDashedCheck,IconBrandAsana,IconCurrencyRupee } from "@tabler/icons-react"
 import { Badge } from "@/components/ui/badge"
 import {
   Card,
@@ -9,13 +9,21 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 
-export function SectionCards() {
+export function SectionCards({dashboardData} ) {
+  console.log("sectioncards ",dashboardData)
+  // const {totalInvested}=dashboardData
   return (
+    <>
+     {dashboardData && (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-4 sm:px-6 lg:px-8">
       <Card>
         <CardHeader>
           <CardDescription>Total Amount Invested</CardDescription>
-          <CardTitle>Rs 1,250.00</CardTitle>
+          <CardTitle className="flex items-baseline gap-1 text-2xl font-semibold">
+  <span className="leading-none">{dashboardData.totalInvested}</span>
+  <span className="text-sm text-muted-foreground">MATIC</span>
+</CardTitle>
+
           <CardAction>
              <Badge variant="outline">
           <IconLeaf className="!w-5 !h-5"  />
@@ -24,16 +32,19 @@ export function SectionCards() {
           </CardAction>
         </CardHeader>
         <CardFooter className="flex flex-col items-start gap-1.5 text-sm">
-            {/* Percentage Change=Previous Value/Current Value−Previous Value​×100 */}
-        
-          <div className="text-muted-foreground">+12.5%  this month</div>
-        </CardFooter>
+  <div className="flex items-baseline text-muted-foreground gap-1">
+    <span className="text-xl">{dashboardData.thisMonthInvested}</span> 
+    <span className="text-sm">MATIC</span>
+    this month
+
+  </div>
+</CardFooter>
       </Card>
 
       <Card>
         <CardHeader>
           <CardDescription>Campigns</CardDescription>
-          <CardTitle> Toatal 12  </CardTitle>
+          <CardTitle> Toatal {dashboardData.totalCampaigns} </CardTitle>
           <CardAction>
                          <Badge variant="outline">
            <IconBrandAsana className="!w-5 !h-5"/>
@@ -42,14 +53,14 @@ export function SectionCards() {
         </CardHeader>
         <CardFooter className="flex flex-col items-start gap-1.5 text-sm">
           
-          <div className="text-muted-foreground">8 Active </div>
+          <div className="text-muted-foreground">{dashboardData.activeCampaigns} Active </div>
         </CardFooter>
       </Card>
 
       <Card>
         <CardHeader>
           <CardDescription>Co<sub>2</sub> offset achieved</CardDescription>
-          <CardTitle>10 kgco<sub>2</sub></CardTitle>
+          <CardTitle>{dashboardData.co2Achieved} kgco<sub>2</sub></CardTitle>
           <CardAction>
             <Badge variant="outline">
               <IconCircleDottedLetterC className="!w-5 !h-5" />
@@ -58,14 +69,14 @@ export function SectionCards() {
         </CardHeader>
         <CardFooter className="flex flex-col items-start gap-1.5 text-sm">
         
-          <div className="text-muted-foreground">Target: 20 kgco<sub>2</sub></div>
+          <div className="text-muted-foreground">Target: {dashboardData.totalTargetToOffset} kgco<sub>2</sub></div>
         </CardFooter>
       </Card>
 
       <Card>
         <CardHeader>
           <CardDescription>Certificate Earned</CardDescription>
-          <CardTitle>12</CardTitle>
+          <CardTitle>{dashboardData.certificateEarned}</CardTitle>
           <CardAction>
             <Badge variant="outline">
               <IconCircleDashedCheck className="!w-5 !h-5" /> Verified
@@ -80,5 +91,14 @@ export function SectionCards() {
         </CardFooter> */}
       </Card>
     </div>
+     )}
+
+      {!dashboardData && (
+        <div className="text-center text-muted-foreground py-6">
+          Loading dashboard data...
+        </div>
+      )}
+    </>
+
   )
 }

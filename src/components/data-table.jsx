@@ -1,35 +1,42 @@
-import React, { useState } from "react";
+import { useState,useMemo } from "react";
 import { createColumnHelper, useReactTable, flexRender, getCoreRowModel } from "@tanstack/react-table";
 import { Link } from "react-router-dom";
+import {IconCurrencyRupee} from "@tabler/icons-react";
+
 const columnHelper = createColumnHelper();
 
 const columns = [
-  columnHelper.accessor("CampaignsName", { header: "Campaigns Name" }),
-  columnHelper.accessor("AmountInvested", { header: "Amount Invested" }),
+  columnHelper.accessor("nameofevent", { header: "Events Name" }),
+  columnHelper.accessor("AmountPaid", { header: "Amount Invested",
+    cell: info => (
+      <div className="flex items-center gap-1">
+        <span>{info.getValue()}</span>
+      <span className="text-sm">MATIC</span>
+
+      </div>
+    )}),
   columnHelper.accessor("status", { header: "Status" }),
-  columnHelper.accessor("Date", { header: "Date" }),
+  columnHelper.accessor("createdAt", {
+    header: "Date",
+    cell: info => {
+      const date = new Date(info.getValue());
+      return date.toLocaleDateString();
+    },
+  }),
 ];
 
-const data = [
-  { id: 1, CampaignsName: "xxxx", AmountInvested: "0", status: "active", Date: "00:00:0000" },
-  { id: 2, CampaignsName: "xxxx", AmountInvested: "0", status: "active", Date: "00:00:0000" },
-  { id: 3, CampaignsName: "xxxx", AmountInvested: "0", status: "active", Date: "00:00:0000" },
-  { id: 4, CampaignsName: "xxxx", AmountInvested: "0", status: "active", Date: "00:00:0000" },
-  { id: 5, CampaignsName: "xxxx", AmountInvested: "0", status: "active", Date: "00:00:0000" },
-  { id: 6, CampaignsName: "xxxx", AmountInvested: "0", status: "active", Date: "00:00:0000" },
-  { id: 7, CampaignsName: "xxxx", AmountInvested: "0", status: "active", Date: "00:00:0000" },
-  { id: 8, CampaignsName: "xxxx", AmountInvested: "0", status: "active", Date: "00:00:0000" },
-  { id: 9, CampaignsName: "xxxx", AmountInvested: "0", status: "active", Date: "00:00:0000" },
-  { id: 10, CampaignsName: "xxxx", AmountInvested: "0", status: "active", Date: "00:00:0000" },
-];
 
-export function DataTable() {
+export function DataTable({events=[]}) {
+  console.log("events data in datatable ",events)
   const [pageIndex, setPageIndex] = useState(0);
   const pageSize = 3; // number of rows per page
-  const totalPages = Math.ceil(data.length / pageSize);
+  const totalPages = Math.ceil(events.length / pageSize);
 
   // Slice data for current page
-  const pagedData = data.slice(pageIndex * pageSize, pageIndex * pageSize + pageSize);
+  const pagedData = useMemo(
+  () => events.slice(pageIndex * pageSize, pageIndex * pageSize + pageSize),
+  [events, pageIndex, pageSize]
+);
 
   const table = useReactTable({
     data: pagedData,
@@ -39,7 +46,7 @@ export function DataTable() {
 
   return (
      <div className="overflow-x-auto">
-      {data.length === 0 ? (
+      {events.length === 0 ? (
         <div className="p-6 text-center text-gray-500 dark:text-gray-400  rounded">
           No events found. 
             <Link
@@ -63,16 +70,17 @@ export function DataTable() {
                 </tr>
               ))}
             </thead>
-            <tbody>
-              {pagedData.map(row => (
-                <tr key={row.id}>
-                  <td className="border-b p-2">{row.CampaignsName}</td>
-                  <td className="border-b p-2">{row.AmountInvested}</td>
-                  <td className="border-b p-2">{row.status}</td>
-                  <td className="border-b p-2">{row.Date}</td>
-                </tr>
-              ))}
-            </tbody>
+<tbody>
+  {table.getRowModel().rows.map(row => (
+    <tr key={row.id}>
+      {row.getVisibleCells().map(cell => (
+        <td key={cell.id} className="border-b p-2">
+          {flexRender(cell.column.columnDef.cell, cell.getContext())}
+        </td>
+      ))}
+    </tr>
+  ))}
+</tbody>
           </table>
 
           <div className="flex justify-center items-center mt-4">

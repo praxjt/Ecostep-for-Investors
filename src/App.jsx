@@ -14,16 +14,20 @@ import ProtectedRoute from '@/components/ProtectedRoute';
 
 import { Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from "@/components/theme-provider"
+import LandingPageWrapper from '@/pages/landing/Landingpagewrapper'
 
 // import { ToastProvider } from '@/hooks/usetoast.jsx';
 function App() {
+
+
   return (
+
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <Routes>
           <Route path="/" element={
             // <ToastProvider>
-            <LandingPage />
-
+            // <LandingPage />
+<LandingPageWrapper/>
             // </ToastProvider>
             } />
 
@@ -45,7 +49,8 @@ function App() {
           {/* Fallback Route */}
           <Route path="*" element={
             //  <ToastProvider>
-            <LandingPage />
+            // <LandingPage />
+            <LandingPageWrapper/>
 
           // </ToastProvider>
             

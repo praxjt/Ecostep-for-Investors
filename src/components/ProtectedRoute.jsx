@@ -1,5 +1,7 @@
 import { Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { LoaderThree } from "@/components/ui/loader";
+ 
 
 export default function ProtectedRoute({ children }) {
   const [isValid, setIsValid] = useState(null); 
@@ -54,8 +56,13 @@ export default function ProtectedRoute({ children }) {
     verifySession();
   }, []);
 
-  if (isValid === null) return <div>Loading...</div>;
+  if (isValid === null) return(
+    <div className="flex items-center justify-center h-screen w-screen">
+    <LoaderThree/>
 
+    </div>
+    
+   )
   if (!isValid) return <Navigate to="/" replace />;
 
   return children;

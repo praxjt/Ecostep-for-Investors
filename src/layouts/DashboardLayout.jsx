@@ -53,7 +53,6 @@ export default function DashboardLayout() {
       });
 
       if (res.status === 401 || res.status === 403) {
-        // Unauthorized or token expired → redirect to login
         navigate("/login");
         return;
       }
@@ -73,7 +72,14 @@ export default function DashboardLayout() {
     }
   
     }
-  
+   const handleLogout = () => {
+    localStorage.removeItem("wallet");
+    localStorage.removeItem("accessToken");
+    
+   
+    navigate("/", { replace: true }); 
+  };
+
 
   return (
     <div className="flex h-screen w-full">
@@ -87,7 +93,7 @@ export default function DashboardLayout() {
               <IconWallet /> {shortenAddress(wallet)}
             </Button>
             <ModeToggle />
-            <Button variant="outline">
+            <Button variant="outline" onClick={handleLogout}>
               <IconLogout /> Logout
             </Button>
           </div>
