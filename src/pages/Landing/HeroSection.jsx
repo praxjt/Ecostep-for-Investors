@@ -99,7 +99,9 @@ const HeroSection = () => {
     sparkleSize={8}
     colors={{ first: '#fde047', second: '#f97316' }}
   > */}
-        <ConnectWallet/>
+        <div className="hidden lg:inline-block">
+  <ConnectWallet />
+</div>
 
   {/* </SparklesText> */}
 {/* </a> */}
@@ -132,7 +134,9 @@ const HeroSection = () => {
                   {link.name}
                 </a>)}
    
-       <ConnectWallet/>
+   <div className="lg:hidden ">
+  <ConnectWallet />
+</div>
 
   
             </nav>
@@ -158,7 +162,9 @@ const HeroSection = () => {
              Empower eco-friendly walking campaigns that offset carbon emissions  and watch your investments create real-world impact.
             </p>
    
-    <ConnectWallet/>
+  <div className="mt-8">
+  <ConnectWallet />
+</div>
 
           </div>
         </main>

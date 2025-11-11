@@ -1,13 +1,15 @@
-import HeroSection  from './NavBar.jsx';
+import HeroSection  from './Herosection.jsx';
 import Footer2 from './footer.jsx';
-import {FAQ} from './Faq.jsx';
+import {FAQ} from '@/components/Faq.jsx';
 import FeaturesPage from  './Featurepage.jsx';
 import { BackgroundBeams } from "@/components/ui/background-beams.jsx";
 
 
 
 
+
 export default function LandingPage(){
+  
     return (
       <div className="min-h-screen w-full bg-black relative">
   <div
@@ -44,7 +46,7 @@ export default function LandingPage(){
   ]}/>
   </section>
             <Footer2 />
-
+ 
         </div>
     );
 };

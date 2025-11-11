@@ -1,16 +1,19 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from "react-router-dom";
-
-
+import { ToastProvider } from '@/hooks/usetoast.jsx';
 import './index.css'
 
 import App from './App.jsx'
 
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-      <BrowserRouter>
+ <ToastProvider>
+    <BrowserRouter>
     <App />
+      
  </BrowserRouter>
-  </StrictMode>
+            </ToastProvider>
+            </StrictMode>
 )

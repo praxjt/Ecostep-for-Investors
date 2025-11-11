@@ -3,25 +3,37 @@ import { ethers } from 'ethers';
 import { useUserStore } from "@/store/WalletAdress";
 import { Button } from "@/components/ui/button";
 import SparklesText from "@/components/sparklestext";
+import Notification from "@/components/ui/toast";
+import { useToast } from '@/hooks/usetoast';
+import { useNavigate } from 'react-router-dom';
+
 
 function ConnectWallet() {
   // const [address, setAddress] = useState(null);
    const { address, setAddress } = useUserStore();
-  const [error, setError] = useState(null);
+  const [errors, setError] = useState(null);
   const [token, setToken] = useState(null);
+  const { notifications, success, error, loading, removeToast } = useToast();
+const navigate = useNavigate();
 
   const connectWallet = async () => {
+    console.log("clicked connect");
+       
+
     try {
       if (!window.ethereum) {
         throw new Error('MetaMask not detected');
       }
+
+      
     const provider = new ethers.BrowserProvider(window.ethereum);
       const accounts = await provider.send("eth_requestAccounts", []);
       const signer = await provider.getSigner();
       const addr = await signer.getAddress();
       const network = await provider.getNetwork();
-
+      console.log("Connected address:", accounts[0],signer,addr,network);
       setAddress(addr);
+
 
     
  const connectRes = await fetch("http://localhost:3001/connect", {
@@ -30,13 +42,17 @@ function ConnectWallet() {
         body: JSON.stringify({
           address: addr,
           chainId:  Number(network.chainId),
-          role:"Investor"
+          role:"INVESTOR"
         }),
       });
 
       const connectData = await connectRes.json();
-   
-      if (!connectRes.ok) throw new Error(connectData.error || "Failed to connect");
+      if (!connectRes.ok){
+      throw new Error(connectData.error || "Failed to connect");
+      }
+
+
+
 
       const siweMessage = connectData.message;
 
@@ -51,13 +67,21 @@ function ConnectWallet() {
       const verifyData = await verifyRes.json();
       if (!verifyRes.ok || !verifyData.ok)
         throw new Error(verifyData.error || "Verification failed");
+      //  await new Promise((resolve, reject) => setTimeout(() => reject(new Error('Wallet connection failed')), 2000));
+
+         success('Wallet Connected', 'Your wallet is now connected!');
 
       setToken(verifyData.accessToken);
-      alert(" Wallet authenticated successfully!");
+      localStorage.setItem("wallet", addr);       // persist for ProtectedRoute
+localStorage.setItem("accessToken", verifyData.accessToken);
+
+      navigate('/dashboard');
     
   
      } catch (err) {
       setError(err.message);
+ error('Error', 'server error:');
+
     }
     }
 
@@ -67,8 +91,9 @@ function ConnectWallet() {
   
         <button
   onClick={connectWallet}
-  className="hidden lg:inline-block bg-[#1A2230] border border-[#F9FAFB] font-semibold px-6 py-3 rounded-lg 
+    className="inline-block bg-[#1A2230] border border-[#F9FAFB] font-semibold px-6 py-3 rounded-lg 
   hover:bg-[#1A2230] hover:border-[#9EE6FF] hover:shadow-[0_0_12px_#9EE6FF] transition-all shadow-sm"
+
 >
   <SparklesText
     as="span"
@@ -89,7 +114,12 @@ function ConnectWallet() {
         <Button onClick={connectWallet}>Connect Wallet</Button>
       )}
       {error && <div style={{ color: 'red' }}>{error}</div>} */}
+
+     
+
     </div>
+
+    
   );
 }
 
