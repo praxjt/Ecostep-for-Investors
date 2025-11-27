@@ -56,11 +56,11 @@ const data = {
     //   url: "/dashboard/active-campaigns",
     //   icon: IconLayoutGrid,
     // },
-    {
-      title: "Certificates",
-      url: "/dashboard/certificates",
-      icon: IconCertificate,
-    },
+    // {
+    //   title: "Certificates",
+    //   url: "/dashboard/certificates",
+    //   icon: IconCertificate,
+    // },
     // {
     //   title: "Profile",
     //   url: "/dashboard/users",

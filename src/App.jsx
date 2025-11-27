@@ -43,7 +43,7 @@ function App() {
           >
             <Route index element={<DashboardHome />} />
             <Route path="create-campaign" element={<CreateCampaign />} />
-            <Route path="certificates" element={<Certificates />} />
+            {/* <Route path="certificates" element={<Certificates />} /> */}
           </Route>
 
           {/* Fallback Route */}

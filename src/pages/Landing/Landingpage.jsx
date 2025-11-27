@@ -41,8 +41,8 @@ export default function LandingPage(){
             faqs={[
     { question:"what is Carbon offset?",answer:"Carbon offset is an action that balances out the carbon dioxide you produce by reducing or removing the same amount of CO₂ elsewhere, such as planting trees or using renewable energy."},
     { question: "What is EcoStep?", answer: "EcoStep helps fund eco projects." },
-    { question: "How can I connect my wallet?", answer: "Intall any wallet extension and Use the Connect Wallet button. it will popup the extension for Authentication " },
-    {question:"Is my personal data safe?",answer:"Absolutely,we use web3 technologies to ensure your data is secure."},
+    { question: "How can I connect my wallet?", answer: "Install any wallet extension and Use the Connect Wallet button. it will popup the extension for Authentication " },
+    {question:"Is my personal data safe?",answer:"Absolutely yes,we use web3 technologies to ensure your data is secure."},
   ]}/>
   </section>
             <Footer2 />

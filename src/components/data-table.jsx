@@ -23,6 +23,29 @@ const columns = [
       return date.toLocaleDateString();
     },
   }),
+    columnHelper.display({
+    header: "Certificate",
+    cell: (info) => {
+      const row = info.row.original;
+
+      if (row.status !== "claimed") {
+        return <span className="text-gray-400">Not Eligible</span>;
+      }
+
+      return (
+<a
+  href={`http://localhost:3001/dashboard/certificate/${row.id}`}
+  target="_blank"
+  className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium 
+             bg-green-600 text-white rounded-lg shadow-sm 
+             hover:bg-green-700 transition-all"
+>
+  Download
+</a>
+
+      );
+    },
+  }),
 ];
 
 
