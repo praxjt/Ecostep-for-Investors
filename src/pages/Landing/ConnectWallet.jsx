@@ -6,6 +6,7 @@ import SparklesText from "@/components/sparklestext";
 import Notification from "@/components/ui/toast";
 import { useToast } from '@/hooks/usetoast';
 import { useNavigate } from 'react-router-dom';
+import { baseurl } from '@/store/baseurl';
 
 
 function ConnectWallet() {
@@ -36,7 +37,7 @@ const navigate = useNavigate();
 
 
     
- const connectRes = await fetch("http://localhost:3001/connect", {
+ const connectRes = await fetch(`${baseurl}connect`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -58,7 +59,7 @@ const navigate = useNavigate();
 
       const signature = await signer.signMessage(siweMessage);
 
-      const verifyRes = await fetch("http://localhost:3001/siwe", {
+      const verifyRes = await fetch(`${baseurl}siwe`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: siweMessage, signature }),

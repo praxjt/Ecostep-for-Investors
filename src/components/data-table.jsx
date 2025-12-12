@@ -2,6 +2,9 @@ import { useState,useMemo } from "react";
 import { createColumnHelper, useReactTable, flexRender, getCoreRowModel } from "@tanstack/react-table";
 import { Link } from "react-router-dom";
 import {IconCurrencyRupee} from "@tabler/icons-react";
+import { baseurl } from "../store/baseurl";
+console.log("baseurl",baseurl)
+// console.log("`${baseurl}/dashboard/certificate/${row.id}`",`${baseurl}/dashboard/certificate/${row.id}`)
 
 const columnHelper = createColumnHelper();
 
@@ -34,7 +37,7 @@ const columns = [
 
       return (
 <a
-  href={`http://localhost:3001/dashboard/certificate/${row.id}`}
+  href={`${baseurl}dashboard/certificate/${row.id}`}
   target="_blank"
   className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium 
              bg-green-600 text-white rounded-lg shadow-sm 

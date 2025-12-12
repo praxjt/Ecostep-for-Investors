@@ -8,6 +8,7 @@ import { DataTable } from "@/components/data-table";
 // import { Table } from "@/components/ui/table";
 import { useUserStore } from "@/store/WalletAdress"
 import { useNavigate } from "react-router-dom";
+import { baseurl } from "@/store/baseurl";
 
 
 
@@ -44,7 +45,7 @@ export default function DashboardHome() {
     setError(null);
 
     try {
-      const res = await fetch("http://localhost:3001/dashboard", {
+      const res = await fetch(`${baseurl}dashboard`, {
         headers: {
           "Content-Type": "application/json",
           "x-user-address": walletParam,

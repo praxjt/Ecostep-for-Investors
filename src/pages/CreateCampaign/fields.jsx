@@ -49,7 +49,7 @@ const { notifications, success, error, removeToast } = useToast();
 useEffect(() => {
  const fetchCompany = async () => {
     try {
-      const res = await fetch("http://localhost:3001/api/getCompanyName", {
+      const res = await fetch(`${baseurl}api/getCompanyName`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           "x-user-address": localStorage.getItem("wallet"),
@@ -77,7 +77,7 @@ useEffect(() => {
     // If user changes targetOffset, calculate amountToPay
     if (id === "targetOffset") {
       const target = parseFloat(value) || 0;
-      updated.amountToPay = (target * 3).toString(); // 3 AMOY per kg CO2
+      updated.amountToPay = (target * 6).toString(); // 6 AMOY per kg CO2 65 70 inr
     }
 
     return updated;
@@ -138,7 +138,7 @@ for (const log of receipt.logs) {
   }
 }
 
-      const response = await fetch("http://localhost:3001/api/createEvent", {
+      const response = await fetch(`${baseurl}api/createEvent`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

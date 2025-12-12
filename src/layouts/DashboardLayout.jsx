@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { IconWallet, IconLogout } from "@tabler/icons-react"
 import { useUserStore } from "@/store/WalletAdress"
 import { Outlet } from "react-router-dom"
+import {baseurl} from "../store/baseurl"
 
 function shortenAddress(address) {
   if (!address) return "";
@@ -44,7 +45,7 @@ export default function DashboardLayout() {
     setError(null);
 
     try {
-      const res = await fetch("http://localhost:3001/dashboard", {
+      const res = await fetch(`${baseurl}dashboard`, {
         headers: {
           "Content-Type": "application/json",
           "x-user-address": walletParam,

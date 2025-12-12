@@ -1,6 +1,7 @@
 import { Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { LoaderThree } from "@/components/ui/loader";
+import { baseurl } from "@/store/baseurl";
  
 
 export default function ProtectedRoute({ children }) {
@@ -17,7 +18,7 @@ export default function ProtectedRoute({ children }) {
       }
 
       try {
-        const res = await fetch("http://localhost:3001/login", {
+        const res = await fetch(`${baseurl}login`, {
           headers: {
             Authorization: `Bearer ${token}`,
             "x-user-address": wallet,
@@ -31,7 +32,7 @@ export default function ProtectedRoute({ children }) {
 
         if (res.status === 401) {
           const refreshToken = localStorage.getItem("refreshToken");
-          const refreshRes = await fetch("http://localhost:3001/refreshtoken", {
+          const refreshRes = await fetch(`${baseurl}refreshtoken`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ wallet, refreshToken }),
